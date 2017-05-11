@@ -1,15 +1,16 @@
 require('../namespace').namespace('Plankton', function (container) {
 	'use strict';
-
+	
+	
 	var is = container.Plankton.is;
-
-
+	
+	
 	/**
 	 * @name Plankton.obj
 	 */
 	var obj = {};
-
-
+	
+	
 	/**
 	 * @param {Object} subject
 	 * @return {Object}
@@ -55,7 +56,6 @@ require('../namespace').namespace('Plankton', function (container) {
 		res[key] = value;
 		return res;
 	};
-	
 	
 	/**
 	 * @param subject
