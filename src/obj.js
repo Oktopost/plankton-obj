@@ -1,8 +1,9 @@
-require('../namespace').namespace('Plankton', function (container) {
+require('../namespace').namespace('Plankton', function (root)
+{
 	'use strict';
 	
 	
-	var is = container.Plankton.is;
+	var is = root.Plankton.is;
 	
 	
 	/**
@@ -15,7 +16,8 @@ require('../namespace').namespace('Plankton', function (container) {
 	 * @param {Object} subject
 	 * @return {Object}
 	 */
-	obj.copy = function (subject) {
+	obj.copy = function (subject)
+	{
 		var res = {};
 		obj.forEach.pair(subject, function (key, val) { res[key] = val; });
 		return res;
@@ -25,8 +27,10 @@ require('../namespace').namespace('Plankton', function (container) {
 	 * @param {Object} subject
 	 * @return {Object}
 	 */
-	obj.mix = function (subject) {
-		for (var i = 1; i < arguments.length; i++) {
+	obj.mix = function (subject)
+	{
+		for (var i = 1; i < arguments.length; i++)
+		{
 			obj.forEach.pair(arguments[i], function (key, val) { subject[key] = val; });
 		}
 		
@@ -36,10 +40,12 @@ require('../namespace').namespace('Plankton', function (container) {
 	/**
 	 * @return {Object}
 	 */
-	obj.merge = function () {
+	obj.merge = function ()
+	{
 		var res = {};
 		
-		for (var i = 0; i < arguments.length; i++) {
+		for (var i = 0; i < arguments.length; i++)
+		{
 			obj.forEach.pair(arguments[i], function (key, val) { res[key] = val; });
 		}
 		
@@ -51,7 +57,8 @@ require('../namespace').namespace('Plankton', function (container) {
 	 * @param {*} value
 	 * @returns {Object}
 	 */
-	obj.combine = function (key, value) {
+	obj.combine = function (key, value)
+	{
 		var res = {};
 		res[key] = value;
 		return res;
@@ -61,7 +68,8 @@ require('../namespace').namespace('Plankton', function (container) {
 	 * @param subject
 	 * @returns {*|undefined}
 	 */
-	obj.any = function (subject) {
+	obj.any = function (subject)
+	{
 		var key = obj.any.key(subject);
 		return (is.defined(key) ? subject[key] : undefined);
 	};
@@ -76,7 +84,8 @@ require('../namespace').namespace('Plankton', function (container) {
 	 * @param {Object} subject
 	 * @return {*|undefined}
 	 */
-	obj.any.key = function (subject) {
+	obj.any.key = function (subject)
+	{
 		var keys = obj.keys(subject);
 		return keys.length > 0 ? keys[0] : undefined;
 	};
@@ -85,11 +94,13 @@ require('../namespace').namespace('Plankton', function (container) {
 	 * @param {Object} subject
 	 * @return {*|undefined}
 	 */
-	obj.any.item = function (subject) {
+	obj.any.item = function (subject)
+	{
 		var key = obj.any.key(subject);
 		var res = undefined;
 		
-		if (is.defined(key)) {
+		if (is.defined(key))
+		{
 			res = obj.combine(key, subject[key]);
 		}
 		
@@ -100,10 +111,13 @@ require('../namespace').namespace('Plankton', function (container) {
 	/**
 	 * @param {Object} subject
 	 * @param {function (*)} callback
+	 * @param {*=} scope
 	 */
-	obj.forEach = function (subject, callback) {
-		obj.forEach.key(subject, function (key) {
-			return callback(subject[key]);
+	obj.forEach = function (subject, callback, scope)
+	{
+		obj.forEach.key(subject, function (key) 
+		{
+			return callback.call(scope, subject[key]);
 		});
 	};
 	
@@ -116,14 +130,19 @@ require('../namespace').namespace('Plankton', function (container) {
 	/**
 	 * @param {Object} subject
 	 * @param {function (*)} callback
+	 * @param {*=} scope
 	 */
-	obj.forEach.key = function (subject, callback) {
-		for (var key in subject) {
-			if (!subject.hasOwnProperty(key)) {
+	obj.forEach.key = function (subject, callback, scope)
+	{
+		for (var key in subject)
+		{
+			if (!subject.hasOwnProperty(key))
+			{
 				continue;
 			}
 			
-			if (callback(key) === false) {
+			if (callback.call(scope, key) === false)
+			{
 				break;
 			}
 		}
@@ -132,20 +151,26 @@ require('../namespace').namespace('Plankton', function (container) {
 	/**
 	 * @param {Object} subject
 	 * @param {function (*)} callback
+	 * @param {*=} scope
 	 */
-	obj.forEach.pair = function (subject, callback) {
-		obj.forEach.key(subject, function (key) {
-			return callback(key, subject[key]);
+	obj.forEach.pair = function (subject, callback, scope)
+	{
+		obj.forEach.key(subject, function (key)
+		{
+			return callback.call(scope, key, subject[key]);
 		});
 	};
 	
 	/**
 	 * @param {Object} subject
 	 * @param {function (*)} callback
+	 * @param {*=} scope
 	 */
-	obj.forEach.item = function (subject, callback) {
-		obj.forEach.pair(subject, function (key, value) {
-			return callback(obj.combine(key, value));
+	obj.forEach.item = function (subject, callback, scope)
+	{
+		obj.forEach.pair(subject, function (key, value)
+		{
+			return callback.call(scope, obj.combine(key, value));
 		});
 	};
 	
@@ -153,17 +178,21 @@ require('../namespace').namespace('Plankton', function (container) {
 	/**
 	 * @param {Object} subject
 	 * @param {function (*): bool|null|number} callback
+	 * @param {*=} scope
 	 * @returns {Object}
 	 */
-	obj.filter = function (subject, callback) {
-		return obj.filter.pair(subject, function (key, value) {
-			return callback(value);
+	obj.filter = function (subject, callback, scope)
+	{
+		return obj.filter.pair(subject, function (key, value)
+		{
+			return callback.call(scope, value);
 		})
 	};
 	
 	/**
 	 * @param {Object} subject
 	 * @param {function (*): bool|null|number} callback
+	 * @param {*=} scope
 	 * @returns {Object}
 	 */
 	obj.filter.value = obj.filter;
@@ -171,31 +200,43 @@ require('../namespace').namespace('Plankton', function (container) {
 	/**
 	 * @param {Object} subject
 	 * @param {function (*): bool|null|number} callback
+	 * @param {*=} scope
 	 * @returns {Object}
 	 */
-	obj.filter.key = function (subject, callback) {
-		return obj.filter.pair(subject, function (key) {
-			return callback(key);
-		})
+	obj.filter.key = function (subject, callback, scope) {
+		return obj.filter.pair(
+			subject, 
+			function (key)
+			{
+				return callback.call(scope, key);
+			});
 	};
 	
 	/**
 	 * @param {Object} subject
 	 * @param {function (*): bool|null|number} callback
+	 * @param {*=} scope
 	 * @returns {Object}
 	 */
-	obj.filter.pair = function (subject, callback) {
+	obj.filter.pair = function (subject, callback, scope)
+	{
 		var filtered = {};
 		
-		obj.forEach.pair(subject, function (key, value) {
-			var res = callback(key, value);
-			
-			if (is.null(res)) {
-				return false;
-			} else if (res === true) {
-				filtered[key] = value;
-			}
-		});
+		obj.forEach.pair(
+			subject, 
+			function (key, value)
+			{
+				var res = callback.call(scope, key, value);
+				
+				if (is.null(res))
+				{
+					return false;
+				}
+				else if (res === true)
+				{
+					filtered[key] = value;
+				}
+			});
 		
 		return filtered;
 	};
@@ -203,30 +244,42 @@ require('../namespace').namespace('Plankton', function (container) {
 	/**
 	 * @param {Object} subject
 	 * @param {function (*): bool|null|number} callback
+	 * @param {*=} scope
 	 * @returns {Object}
 	 */
-	obj.filter.item = function (subject, callback) {
-		return obj.filter.pair(subject, function (key, value) {
-			return callback(obj.combine(key, value));
-		})
+	obj.filter.item = function (subject, callback, scope)
+	{
+		return obj.filter.pair(
+			subject, 
+			function (key, value)
+			{
+				return callback.call(scope, obj.combine(key, value));
+			});
 	};
 	
 	/**
 	 * @param {Object} subject
 	 * @returns {Array}
 	 */
-	obj.values = function (subject) {
-		return obj.keys(subject).reduce(function (result, key) {
-			result.push(subject[key]);
-			return result;
-		}, []);
+	obj.values = function (subject)
+	{
+		return obj
+			.keys(subject)
+			.reduce(
+				function (result, key)
+				{
+					result.push(subject[key]);
+					return result;
+				}, 
+				[]);
 	};
 	
 	/**
 	 * @param {Object} subject
 	 * @returns {Array}
 	 */
-	obj.keys = function (subject) {
+	obj.keys = function (subject)
+	{
 		return Object.keys(subject);
 	};
 	
@@ -234,7 +287,8 @@ require('../namespace').namespace('Plankton', function (container) {
 	 * @param {Object} subject
 	 * @returns {Array}
 	 */
-	obj.count = function (subject) {
+	obj.count = function (subject)
+	{
 		return obj.keys(subject).length;
 	};
 	

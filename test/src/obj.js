@@ -282,6 +282,12 @@ suite('obj module', function() {
 				obj.forEach.value(new testClass, (...args) => { result.push(args) });
 				assert.deepEqual([], result);
 			});
+			
+			test('passed scope used', () => {
+				let scope;
+				obj.forEach.value([1], function () { scope = this; }, 1);
+				assert.strictEqual(1, scope);
+			});
 		});
 		
 		suite('obj.forEach.key', () => {
@@ -316,6 +322,12 @@ suite('obj module', function() {
 				
 				obj.forEach.key(new testClass, (...args) => { result.push(args) });
 				assert.deepEqual([], result);
+			});
+			
+			test('passed scope used', () => {
+				let scope;
+				obj.forEach.key([1], function () { scope = this; }, 1);
+				assert.strictEqual(1, scope);
 			});
 		});
 		
@@ -352,6 +364,12 @@ suite('obj module', function() {
 				obj.forEach.pair(new testClass, (...args) => { result.push(args) });
 				assert.deepEqual([], result);
 			});
+			
+			test('passed scope used', () => {
+				let scope;
+				obj.forEach.pair([1], function () { scope = this; }, 1);
+				assert.strictEqual(1, scope);
+			});
 		});
 		
 		suite('obj.forEach.item', () => {
@@ -387,6 +405,12 @@ suite('obj module', function() {
 				obj.forEach.item(new testClass, (...args) => { result.push(args) });
 				assert.deepEqual([], result);
 			});
+			
+			test('passed scope used', () => {
+				let scope;
+				obj.forEach.item([1], function () { scope = this; }, 1);
+				assert.strictEqual(1, scope);
+			});
 		});
 	});
 	
@@ -420,6 +444,12 @@ suite('obj module', function() {
 				
 				assert.deepEqual({'c': 2}, res);
 			});
+			
+			test('passed scope used', () => {
+				let scope;
+				obj.filter.value([1], function () { scope = this; }, 1);
+				assert.strictEqual(1, scope);
+			});
 		});
 		
 		suite('obj.filter.key', () => {
@@ -450,6 +480,12 @@ suite('obj module', function() {
 				
 				assert.deepEqual({'c': 2}, res);
 			});
+			
+			test('passed scope used', () => {
+				let scope;
+				obj.filter.key([1], function () { scope = this; }, 1);
+				assert.strictEqual(1, scope);
+			});
 		});
 		
 		suite('obj.filter.pair', () => {
@@ -475,6 +511,12 @@ suite('obj module', function() {
 				);
 				
 				assert.deepEqual({'c': 2}, res);
+			});
+			
+			test('passed scope used', () => {
+				let scope;
+				obj.filter.pair([1], function () { scope = this; }, 1);
+				assert.strictEqual(1, scope);
 			});
 		});
 		
@@ -505,6 +547,12 @@ suite('obj module', function() {
 				);
 				
 				assert.deepEqual({'c': 2}, res);
+			});
+			
+			test('passed scope used', () => {
+				let scope;
+				obj.filter.item([1], function () { scope = this; }, 1);
+				assert.strictEqual(1, scope);
 			});
 		});
 	});
