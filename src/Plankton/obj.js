@@ -7,7 +7,8 @@ namespace('Plankton', function (root)
 	
 	
 	/**
-	 * @name Plankton.obj
+	 * @class Plankton.obj
+	 * @alias obj
 	 */
 	var obj = {};
 	
