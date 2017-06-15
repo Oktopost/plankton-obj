@@ -1,8 +1,8 @@
 'use strict';
 
 
-const is = require('../../index').is;
-const obj = require('../../index').obj;
+const is = require('../../../index').is;
+const obj = require('../../../index').obj;
 const assert = require('chai').assert;
 
 

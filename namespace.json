@@ -1,0 +1,9 @@
+{
+	"map":
+	{
+		"file":
+		{
+			"Plankton.obj": "./src/Plankton/obj"
+		}
+	}
+}
