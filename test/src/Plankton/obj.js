@@ -1,6 +1,3 @@
-'use strict';
-
-
 const is = require('../../index').is;
 const obj = require('../../index').obj;
 const assert = require('chai').assert;
@@ -251,32 +248,32 @@ suite('obj module', function() {
 		
 		suite('obj.forEach.value', () => {
 			test('empty object', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.value({}, (...args) => { result.push(args) });
 				assert.deepEqual([], result);
 			});
 			
 			test('object with undefined value', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.value({k: undefined}, (...args) => { result.push(args) });
 				assert.deepEqual([[undefined]], result);
 			});
 			
 			test('object with values', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.value({'a': 'b', 'c': {'a': 12}}, (...args) => { result.push(args) });
 				assert.deepEqual([['b'], [{'a': 12}]], result);
 			});
 			
 			test('break aborts loop', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.value({'a': 'b', 'c': 'd'}, (...args) => { result.push(args); return false });
 				assert.deepEqual([['b']], result);
 			});
 			
 			test('object with inherited', () => {
-				let result = [];
-				let testClass = function() {};
+				var result = [];
+				var testClass = function() {};
 				testClass.prototype.a = 12;
 				
 				obj.forEach.value(new testClass, (...args) => { result.push(args) });
@@ -284,40 +281,40 @@ suite('obj module', function() {
 			});
 			
 			test('passed scope used', () => {
-				let scope;
+				var scope;
 				obj.forEach.value([1], function () { scope = this; }, 1);
-				assert.strictEqual(1, scope);
+				assert.equal(1, scope);
 			});
 		});
 		
 		suite('obj.forEach.key', () => {
 			test('empty object', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.key({}, (...args) => { result.push(args) });
 				assert.deepEqual([], result);
 			});
 			
 			test('object with undefined value', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.key({k: undefined}, (...args) => { result.push(args) });
 				assert.deepEqual([['k']], result);
 			});
 			
 			test('object with key', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.key({'a': 'b', 'c': {'a': 12}}, (...args) => { result.push(args) });
 				assert.deepEqual([['a'], ['c']], result);
 			});
 			
 			test('break aborts loop', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.key({'a': 'b', 'c': 'd'}, (...args) => { result.push(args); return false });
 				assert.deepEqual([['a']], result);
 			});
 			
 			test('object with inherited', () => {
-				let result = [];
-				let testClass = function() {};
+				var result = [];
+				var testClass = function() {};
 				testClass.prototype.a = 12;
 				
 				obj.forEach.key(new testClass, (...args) => { result.push(args) });
@@ -325,40 +322,40 @@ suite('obj module', function() {
 			});
 			
 			test('passed scope used', () => {
-				let scope;
+				var scope;
 				obj.forEach.key([1], function () { scope = this; }, 1);
-				assert.strictEqual(1, scope);
+				assert.equal(1, scope);
 			});
 		});
 		
 		suite('obj.forEach.pair', () => {
 			test('empty object', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.pair({}, (...args) => { result.push(args) });
 				assert.deepEqual([], result);
 			});
 			
 			test('object with key', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.pair({'a': 'b', 'c': {'a': 12}}, (...args) => { result.push(args) });
 				assert.deepEqual([['a', 'b'], ['c', {'a': 12}]], result);
 			});
 			
 			test('break aborts loop', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.pair({'a': 'b', 'c': 'd'}, (...args) => { result.push(args); return false });
 				assert.deepEqual([['a', 'b']], result);
 			});
 			
 			test('object with undefined value', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.pair({k: undefined}, (...args) => { result.push(args) });
 				assert.deepEqual([['k', undefined]], result);
 			});
 			
 			test('object with inherited', () => {
-				let result = [];
-				let testClass = function() {};
+				var result = [];
+				var testClass = function() {};
 				testClass.prototype.a = 12;
 				
 				obj.forEach.pair(new testClass, (...args) => { result.push(args) });
@@ -366,40 +363,40 @@ suite('obj module', function() {
 			});
 			
 			test('passed scope used', () => {
-				let scope;
+				var scope;
 				obj.forEach.pair([1], function () { scope = this; }, 1);
-				assert.strictEqual(1, scope);
+				assert.equal(1, scope);
 			});
 		});
 		
 		suite('obj.forEach.item', () => {
 			test('empty object', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.item({}, (...args) => { result.push(args) });
 				assert.deepEqual([], result);
 			});
 			
 			test('object with key', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.item({'a': 'b', 'c': {'a': 12}}, (...args) => { result.push(args) });
 				assert.deepEqual([[{'a': 'b'}], [{'c': {'a': 12}}]], result);
 			});
 			
 			test('object with undefined value', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.item({k: undefined}, (...args) => { result.push(args) });
 				assert.deepEqual([[{'k': undefined}]], result);
 			});
 			
 			test('break aborts loop', () => {
-				let result = [];
+				var result = [];
 				obj.forEach.item({'a': 'b', 'c': 'd'}, (...args) => { result.push(args); return false });
 				assert.deepEqual([[{'a': 'b'}]], result);
 			});
 			
 			test('object with inherited', () => {
-				let result = [];
-				let testClass = function() {};
+				var result = [];
+				var testClass = function() {};
 				testClass.prototype.a = 12;
 				
 				obj.forEach.item(new testClass, (...args) => { result.push(args) });
@@ -407,22 +404,22 @@ suite('obj module', function() {
 			});
 			
 			test('passed scope used', () => {
-				let scope;
+				var scope;
 				obj.forEach.item([1], function () { scope = this; }, 1);
-				assert.strictEqual(1, scope);
+				assert.equal(1, scope);
 			});
 		});
 	});
 	
 	suite('obj.filter', function() {
 		test('obj.filter.value same as obj.filter', () => {
-			assert.strictEqual(obj.filter, obj.filter.value);
+			assert.equal(obj.filter, obj.filter.value);
 		});
 		
 		
 		suite('obj.filter.value', () => {
 			test('value passed to callback', () => {
-				let result = [];
+				var result = [];
 				obj.filter.value({'a': 'b', 'c': 'd'}, (...args) => { result.push(args); });
 				assert.deepEqual([['b'], ['d']], result);
 			});
@@ -446,15 +443,15 @@ suite('obj module', function() {
 			});
 			
 			test('passed scope used', () => {
-				let scope;
+				var scope;
 				obj.filter.value([1], function () { scope = this; }, 1);
-				assert.strictEqual(1, scope);
+				assert.equal(1, scope);
 			});
 		});
 		
 		suite('obj.filter.key', () => {
 			test('key passed to callback', () => {
-				let result = [];
+				var result = [];
 				obj.filter.key({'a': 'b', 'c': 'd'}, (...args) => { result.push(args); });
 				assert.deepEqual([['a'], ['c']], result);
 			});
@@ -482,15 +479,15 @@ suite('obj module', function() {
 			});
 			
 			test('passed scope used', () => {
-				let scope;
+				var scope;
 				obj.filter.key([1], function () { scope = this; }, 1);
-				assert.strictEqual(1, scope);
+				assert.equal(1, scope);
 			});
 		});
 		
 		suite('obj.filter.pair', () => {
 			test('obj.filter.pair pair passed to callback', () => {
-				let result = [];
+				var result = [];
 				obj.filter.pair({'a': 'b', 'c': 'd'}, (...args) => { result.push(args); });
 				assert.deepEqual([['a', 'b'], ['c', 'd']], result);
 			});
@@ -514,15 +511,15 @@ suite('obj module', function() {
 			});
 			
 			test('passed scope used', () => {
-				let scope;
+				var scope;
 				obj.filter.pair([1], function () { scope = this; }, 1);
-				assert.strictEqual(1, scope);
+				assert.equal(1, scope);
 			});
 		});
 		
 		suite('obj.filter.item', () => {
 			test('item passed to callback', () => {
-				let result = [];
+				var result = [];
 				obj.filter.item({'a': 'b', 'c': 'd'}, (...args) => { result.push(args); });
 				assert.deepEqual([[{'a': 'b'}], [{'c': 'd'}]], result);
 			});
@@ -550,9 +547,9 @@ suite('obj module', function() {
 			});
 			
 			test('passed scope used', () => {
-				let scope;
+				var scope;
 				obj.filter.item([1], function () { scope = this; }, 1);
-				assert.strictEqual(1, scope);
+				assert.equal(1, scope);
 			});
 		});
 	});

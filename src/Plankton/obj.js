@@ -1,8 +1,5 @@
 namespace('Plankton', function (root)
 {
-	'use strict';
-	
-	
 	var is = root.Plankton.is;
 	
 	
@@ -244,7 +241,7 @@ namespace('Plankton', function (root)
 	
 	/**
 	 * @param {Object} subject
-	 * @param {function (*): bool|null|number} callback
+	 * @param {function (*): boolean|null|number} callback
 	 * @param {*=} scope
 	 * @returns {Object}
 	 */
